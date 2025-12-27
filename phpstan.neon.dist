@@ -10,4 +10,5 @@ parameters:
         - tests/*
         - database/*
         - config/*
+        - vendor/*
         - app/Providers/*
