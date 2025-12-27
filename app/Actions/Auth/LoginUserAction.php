@@ -18,19 +18,19 @@ readonly class LoginUserAction
 
         if (! $user) {
             throw ValidationException::withMessages([
-                ['The provided credentials are incorrect.'],
+                ['The provided credentials are incorrect'],
             ]);
         }
 
         if ($user->is_active === false) {
             throw ValidationException::withMessages([
-                ['Account is not active.'],
+                ['Account is not active'],
             ]);
         }
 
         if ($user->email_verified_at === null) {
             throw ValidationException::withMessages([
-                ['Email is not verified.'],
+                ['Email is not verified'],
             ]);
         }
 
@@ -41,7 +41,7 @@ readonly class LoginUserAction
 
         if (! $token) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'email' => ['The provided credentials are incorrect'],
             ]);
         }
 

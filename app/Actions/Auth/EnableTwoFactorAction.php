@@ -27,7 +27,7 @@ readonly class EnableTwoFactorAction
         ($this->enableTwoFactors)($user);
 
         if ($user->two_factor_recovery_codes === null || $user->two_factor_secret === null) {
-            throw new RuntimeException('Two-factor authentication failed to enable.');
+            throw new RuntimeException('Two-factor authentication failed to enable');
         }
 
         return [
@@ -45,23 +45,23 @@ readonly class EnableTwoFactorAction
     private function getDecodedRecoveryCodes(User $user): array
     {
         $raw = $user->two_factor_recovery_codes
-            ?? throw new RuntimeException('Two-factor recovery codes are missing.');
+            ?? throw new RuntimeException('Two-factor recovery codes are missing');
 
         $decoded = decrypt($raw);
 
         if (! is_string($decoded)) {
-            throw new RuntimeException('Invalid recovery codes payload.');
+            throw new RuntimeException('Invalid recovery codes payload');
         }
 
         $codes = json_decode($decoded, true, 512, JSON_THROW_ON_ERROR);
 
         if (! is_array($codes)) {
-            throw new RuntimeException('Invalid recovery codes payload.');
+            throw new RuntimeException('Invalid recovery codes payload');
         }
 
         return array_map(function (mixed $value): string {
             if (! is_scalar($value) && ! is_null($value)) {
-                throw new RuntimeException('Invalid recovery code type encountered.');
+                throw new RuntimeException('Invalid recovery code type encountered');
             }
 
             return (string) $value;
@@ -71,7 +71,7 @@ readonly class EnableTwoFactorAction
     private function guardNotAlreadyEnabled(User $user): void
     {
         if ($user->two_factor_secret !== null) {
-            throw new RuntimeException('Two-factor authentication is already enabled.');
+            throw new RuntimeException('Two-factor authentication is already enabled');
         }
     }
 }

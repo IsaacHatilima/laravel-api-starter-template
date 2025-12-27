@@ -16,7 +16,7 @@ readonly class EmailVerificationAction
 
         if (! $user) {
             throw ValidationException::withMessages([
-                ['User not found.'],
+                ['User not found'],
             ]);
         }
 

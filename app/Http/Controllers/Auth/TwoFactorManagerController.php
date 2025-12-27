@@ -41,7 +41,7 @@ class TwoFactorManagerController extends Controller
         }
 
         return response()->json([
-            'message' => '2FA enabled. Please scan QR code and confirm with a code.',
+            'message' => '2FA enabled. Please scan QR code and confirm with a code',
             'qr_code' => $result['qr_code'],
             'recovery_codes' => $result['recovery_codes'],
         ]);
