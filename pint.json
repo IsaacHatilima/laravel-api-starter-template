@@ -1,0 +1,64 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "ordered_class_elements": {
+            "order": [
+                "use_trait",
+                "case",
+                "constant_public",
+                "constant_protected",
+                "constant_private",
+                "property_public",
+                "property_protected",
+                "property_private",
+                "construct",
+                "destruct",
+                "magic",
+                "phpunit",
+                "method_public",
+                "method_protected",
+                "method_private"
+            ],
+            "sort_algorithm": "none"
+        },
+        "phpdoc_separation": {
+            "groups": [
+                [
+                    "property"
+                ],
+                [
+                    "property-read"
+                ],
+                [
+                    "property-write"
+                ],
+                [
+                    "return"
+                ],
+                [
+                    "throws"
+                ]
+            ]
+        },
+        "phpdoc_types": false,
+        "phpdoc_scalar": false,
+        "phpdoc_align": false,
+        "simplified_null_return": true,
+        "braces": false,
+        "new_with_braces": {
+            "anonymous_class": true,
+            "named_class": true
+        },
+        "single_line_empty_body": false,
+        "no_extra_blank_lines": {
+            "tokens": [
+                "extra",
+                "curly_brace_block"
+            ]
+        }
+    },
+    "exclude": [
+        "tests/",
+        "database/"
+    ]
+}
