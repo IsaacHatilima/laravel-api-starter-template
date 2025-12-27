@@ -40,7 +40,7 @@ class EnsureJwtVersionIsValid
 
         if ($rawVersion !== $user->token_version) {
             return response()->json([
-                'error' => 'Token revoked',
+                'error' => 'Unauthenticated',
             ], 401);
         }
 

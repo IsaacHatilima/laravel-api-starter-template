@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\EndAllSessionsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -28,6 +29,7 @@ Route::prefix('auth')->group(function () {
 // Protected authentication routes
 Route::middleware(['auth:api', EnsureJwtVersionIsValid::class])->prefix('auth')->group(function () {
     Route::post('logout', LogoutController::class);
+    Route::post('end-all-sessions', EndAllSessionsController::class);
     Route::get('me', MeController::class);
 
     // Two-factor authentication routes
