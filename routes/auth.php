@@ -10,24 +10,27 @@ use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\TwoFactorManagerController;
-use App\Http\Middleware\EnsureJwtVersionIsValid;
+use App\Http\Middleware\AuthRateLimiterMiddleware;
+use App\Http\Middleware\EnsureJwtVersionIsValidMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
-Route::prefix('auth')->group(function () {
-    Route::post('register', RegisterController::class);
-    Route::post('login', LoginController::class);
-    Route::post('forgot-password', ForgotPasswordController::class);
-    Route::get('set-password', [ResetPasswordController::class, 'verify'])->name('password.reset');
-    Route::post('set-password', [ResetPasswordController::class, 'change']);
-    Route::get('email-verification', EmailVerificationController::class)
-        ->middleware('signed')
-        ->name('verification.verify');
-    Route::post('refresh-token', RefreshTokenController::class);
-});
+Route::prefix('auth')
+    ->middleware(AuthRateLimiterMiddleware::class)
+    ->group(function () {
+        Route::post('register', RegisterController::class);
+        Route::post('login', LoginController::class);
+        Route::post('forgot-password', ForgotPasswordController::class);
+        Route::get('set-password', [ResetPasswordController::class, 'verify'])->name('password.reset');
+        Route::post('set-password', [ResetPasswordController::class, 'change']);
+        Route::get('email-verification', EmailVerificationController::class)
+            ->middleware('signed')
+            ->name('verification.verify');
+        Route::post('refresh-token', RefreshTokenController::class);
+    });
 
 // Protected authentication routes
-Route::middleware(['auth:api', EnsureJwtVersionIsValid::class])->prefix('auth')->group(function () {
+Route::middleware(['auth:api', EnsureJwtVersionIsValidMiddleware::class])->prefix('auth')->group(function () {
     Route::post('logout', LogoutController::class);
     Route::post('end-all-sessions', EndAllSessionsController::class);
     Route::get('me', MeController::class);

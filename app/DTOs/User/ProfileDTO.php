@@ -12,7 +12,6 @@ readonly class ProfileDTO extends BaseDTO
 {
     public function __construct(
         public string $id,
-        public int $userId,
         public string $firstName,
         public string $lastName,
         public ?string $createdAt,
@@ -24,7 +23,6 @@ readonly class ProfileDTO extends BaseDTO
     {
         return new self(
             id: $profile->public_id,
-            userId: $profile->user_id,
             firstName: $profile->first_name,
             lastName: $profile->last_name,
             createdAt: $profile->created_at?->toISOString(),
@@ -41,7 +39,6 @@ readonly class ProfileDTO extends BaseDTO
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->userId,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'created_at' => $this->createdAt,

@@ -10,7 +10,7 @@ use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class EnsureJwtVersionIsValid
+class EnsureJwtVersionIsValidMiddleware
 {
     /**
      * Handle an incoming request.

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 
-uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
+// uses(Tests\TestCase::class, Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can request a password reset link', function () {
     Notification::fake();
@@ -20,12 +20,10 @@ it('can request a password reset link', function () {
     $response->assertJson(['message' => __(Password::RESET_LINK_SENT)]);
 
     Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) use ($user) {
-        $notifiable = $user;
         $token = $notification->token;
         $url = url(route('password.reset', [
             'token' => $token,
-            'email' => $notifiable->getEmailForPasswordReset(),
-            'public_id' => $notifiable->public_id,
+            'id' => $user->public_id,
         ], false));
 
         // Reflect to get protected method resetUrl result
@@ -46,33 +44,31 @@ it('can reset password with a valid token', function () {
 
     $token = Password::broker()->createToken($user);
 
-    $response = $this->postJson('/api/auth/reset-password', [
+    $response = $this->postJson('/api/auth/set-password?id='.$user->public_id, [
         'token' => $token,
-        'email' => 'test@example.com',
         'password' => 'NewPassword123!',
         'password_confirmation' => 'NewPassword123!',
     ]);
 
     $response->assertSuccessful();
-    $response->assertJson(['message' => __(Password::PASSWORD_RESET)]);
+    $response->assertJson(['message' => __('Password reset successful')]);
 
     $user->refresh();
     expect(Hash::check('NewPassword123!', $user->password))->toBeTrue();
 });
 
-it('cannot reset password with an invalid token', function () {
-    User::factory()->create([
+it('cannot reset password without a token in database', function () {
+    $user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => Hash::make('OldPassword123!'),
     ]);
 
-    $response = $this->postJson('/api/auth/reset-password', [
-        'token' => 'invalid-token',
-        'email' => 'test@example.com',
+    $response = $this->postJson('/api/auth/set-password?id='.$user->public_id, [
+        'token' => 'some-token',
         'password' => 'NewPassword123!',
         'password_confirmation' => 'NewPassword123!',
     ]);
 
     $response->assertStatus(422);
-    $response->assertJsonValidationErrors(['email']);
+    $response->assertJsonValidationErrors(['id']);
 });

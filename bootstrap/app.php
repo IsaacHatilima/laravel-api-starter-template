@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\RejectInvalidJson;
+use App\Http\Middleware\RejectInvalidJsonMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->appendToGroup('api', [
-            RejectInvalidJson::class,
+            RejectInvalidJsonMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
