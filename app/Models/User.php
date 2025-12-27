@@ -73,6 +73,7 @@ class User extends Authenticatable implements JWTSubject
 
     protected $attributes = [
         'is_active' => true,
+        'token_version' => 1,
     ];
 
     public function sendPasswordResetNotification($token): void
