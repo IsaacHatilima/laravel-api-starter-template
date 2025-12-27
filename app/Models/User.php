@@ -27,6 +27,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @property Carbon|null $last_login_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int $token_version
  *
  * @property-read Profile $profile
  *
@@ -54,6 +55,7 @@ class User extends Authenticatable implements JWTSubject
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
+        'token_version',
     ];
 
     /**
@@ -73,6 +75,11 @@ class User extends Authenticatable implements JWTSubject
         'is_active' => true,
     ];
 
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
+
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmailWithPublicId());
@@ -88,7 +95,9 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims(): array
     {
-        return [];
+        return [
+            'ver' => $this->token_version,
+        ];
     }
 
     /**

@@ -20,6 +20,7 @@ return new class() extends Migration
             $table->boolean('is_active');
             $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
+            $table->unsignedInteger('token_version')->default(1);
             $table->timestamps();
         });
 
