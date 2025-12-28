@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\TwoFactorManagerController;
+use App\Http\Controllers\Settings\TwoFactorManagerController;
 use App\Http\Middleware\AuthRateLimiterMiddleware;
 use App\Http\Middleware\EnsureJwtVersionIsValidMiddleware;
 use Illuminate\Support\Facades\Route;
