@@ -4,6 +4,7 @@ namespace App\Actions\Auth;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Events\TwoFactorAuthenticationFailed;
 use Laravel\Fortify\Events\ValidTwoFactorAuthenticationCodeProvided;
 use Laravel\Fortify\Http\Requests\TwoFactorLoginRequest;
@@ -16,6 +17,9 @@ final readonly class TwoFactorLoginAction
     ) {
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function execute(TwoFactorLoginRequest $request, User $user): string
     {
         $code = $request->validRecoveryCode();
@@ -25,9 +29,9 @@ final readonly class TwoFactorLoginAction
         } elseif (! $request->hasValidCode()) {
             event(new TwoFactorAuthenticationFailed($user));
 
-            return response()->json([
-                'message' => 'The provided two-factor authentication code was invalid.',
-            ], 422);
+            throw ValidationException::withMessages([
+                'code' => ['The provided two-factor authentication code was invalid.'],
+            ]);
         }
 
         event(new ValidTwoFactorAuthenticationCodeProvided($user));
