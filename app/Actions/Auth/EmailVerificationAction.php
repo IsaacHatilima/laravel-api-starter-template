@@ -2,18 +2,15 @@
 
 namespace App\Actions\Auth;
 
-use App\DTOs\Read\User\AuthResponseDTO;
-use App\DTOs\Read\User\UserDTO;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
-use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 final readonly class EmailVerificationAction
 {
     /**
-     * @return AuthResponseDTO|array{message: string}
+     * @return array{message: string}
      */
-    public function execute(string $id): AuthResponseDTO|array
+    public function execute(string $id): array
     {
         $user = User::query()->where('public_id', $id)->first();
 
@@ -29,11 +26,6 @@ final readonly class EmailVerificationAction
 
         $user->markEmailAsVerified();
 
-        $token = JWTAuth::fromUser($user);
-
-        return new AuthResponseDTO(
-            user: UserDTO::fromModel($user->load('profile')),
-            token: $token,
-        );
+        return ['message' => 'Email verified successfully'];
     }
 }

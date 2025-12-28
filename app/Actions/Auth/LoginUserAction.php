@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\DTOs\Command\Auth\LoginDTO;
+use App\DTOs\Read\User\TwoFactorAuthDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Validation\ValidationException;
@@ -18,14 +19,14 @@ final readonly class LoginUserAction
     /**
      * @throws ValidationException
      */
-    public function execute(LoginDTO $dto): string|User
+    public function execute(LoginDTO $dto): TwoFactorAuthDTO
     {
         $user = User::query()->where('email', $dto->email)->first();
 
         $user = $this->ensureUserIsValid($user, $dto);
 
         if ($this->shouldUseTwoFactor($user)) {
-            return $user;
+            return new TwoFactorAuthDTO($user, null, true);
         }
 
         $token = JWTAuth::fromUser($user);
@@ -34,7 +35,7 @@ final readonly class LoginUserAction
             'last_login_at' => now(),
         ]);
 
-        return $token;
+        return new TwoFactorAuthDTO($user, $token, false);
     }
 
     private function ensureUserIsValid(?User $user, LoginDTO $dto): User
