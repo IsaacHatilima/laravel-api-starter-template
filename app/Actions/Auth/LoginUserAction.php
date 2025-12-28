@@ -12,39 +12,38 @@ final readonly class LoginUserAction
     /**
      * @throws ValidationException
      */
-    public function execute(LoginDTO $dto): string
+    public function execute(LoginDTO $dto): string|User
     {
         $user = User::query()->where('email', $dto->email)->first();
 
-        if (! $user) {
-            throw ValidationException::withMessages([
-                ['The provided credentials are incorrect'],
-            ]);
+        $user = $this->ensureUserIsValid($user, $dto);
+
+        if ($this->shouldUseTwoFactor($user)) {
+            return $user;
         }
 
-        if ($user->is_active === false) {
-            throw ValidationException::withMessages([
-                ['Account is not active'],
-            ]);
+        return JWTAuth::fromUser($user);
+    }
+
+    private function ensureUserIsValid(?User $user, LoginDTO $dto): User
+    {
+        if (! $user || ! auth()->validate(['email' => $dto->email, 'password' => $dto->password])) {
+            throw ValidationException::withMessages(['email' => ['The provided credentials are incorrect']]);
+        }
+
+        if (! $user->is_active) {
+            throw ValidationException::withMessages(['email' => ['Account is not active']]);
         }
 
         if ($user->email_verified_at === null) {
-            throw ValidationException::withMessages([
-                ['Email is not verified'],
-            ]);
+            throw ValidationException::withMessages(['email' => ['Email is not verified']]);
         }
 
-        $token = JWTAuth::attempt([
-            'email' => $dto->email,
-            'password' => $dto->password,
-        ]);
+        return $user;
+    }
 
-        if (! $token) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect'],
-            ]);
-        }
-
-        return $token;
+    private function shouldUseTwoFactor(User $user): bool
+    {
+        return $user->two_factor_secret && $user->two_factor_confirmed_at;
     }
 }

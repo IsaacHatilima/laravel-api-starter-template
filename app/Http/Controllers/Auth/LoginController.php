@@ -11,6 +11,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 
 class LoginController extends Controller
 {
@@ -23,13 +24,32 @@ class LoginController extends Controller
         $dto = LoginDTO::fromRequest($request);
 
         try {
-            $token = $this->loginAction->execute($dto);
+            $result = $this->loginAction->execute($dto);
         } catch (ValidationException $e) {
             return response()->json(['message' => $e->getMessage()], 401);
         }
 
-        /** @var User $user */
-        $user = auth()->user();
+        if ($result instanceof User) {
+            $request->session()->put([
+                'login.id' => $result->getKey(),
+                'login.remember' => $request->boolean('remember'),
+            ]);
+
+            return response()->json(['two_factor' => true]);
+        }
+
+        /** @var string $token */
+        $token = $result;
+
+        /** @var JWTGuard $guard */
+        $guard = auth('api');
+
+        /** @var User|null $user */
+        $user = $guard->setToken($token)->user();
+
+        if (! $user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
         $response = new AuthResponseDTO(
             user: UserDTO::fromModel($user->load('profile')),

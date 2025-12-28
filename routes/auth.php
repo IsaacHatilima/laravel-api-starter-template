@@ -9,17 +9,20 @@ use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RefreshTokenController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\TwoFactorLoginController;
 use App\Http\Controllers\Settings\TwoFactorManagerController;
 use App\Http\Middleware\AuthRateLimiterMiddleware;
 use App\Http\Middleware\EnsureJwtVersionIsValidMiddleware;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
 Route::prefix('auth')
-    ->middleware(AuthRateLimiterMiddleware::class)
+    ->middleware([AuthRateLimiterMiddleware::class, StartSession::class])
     ->group(function () {
         Route::post('register', RegisterController::class);
         Route::post('login', LoginController::class);
+        Route::post('two-factor-login', TwoFactorLoginController::class);
         Route::post('forgot-password', ForgotPasswordController::class);
         Route::get('set-password', [ResetPasswordController::class, 'verify'])->name('password.reset');
         Route::post('set-password', [ResetPasswordController::class, 'change']);
