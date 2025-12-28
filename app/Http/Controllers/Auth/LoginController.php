@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\LoginUserAction;
-use App\DTOs\Auth\AuthResponseDTO;
-use App\DTOs\Auth\LoginDTO;
-use App\DTOs\User\UserDTO;
+use App\DTOs\Command\Auth\LoginDTO;
+use App\DTOs\Read\User\AuthResponseDTO;
+use App\DTOs\Read\User\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;

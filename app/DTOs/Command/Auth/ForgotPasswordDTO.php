@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\Auth;
+namespace App\DTOs\Command\Auth;
 
 use App\DTOs\BaseDTO;
 use App\Http\Requests\Auth\ForgotPasswordRequest;

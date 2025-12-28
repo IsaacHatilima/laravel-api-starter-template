@@ -2,7 +2,7 @@
 
 namespace App\Actions\Auth;
 
-use App\DTOs\Auth\LoginDTO;
+use App\DTOs\Command\Auth\LoginDTO;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;

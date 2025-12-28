@@ -2,7 +2,7 @@
 
 namespace App\Actions\Auth;
 
-use App\DTOs\Auth\ResetPasswordDTO;
+use App\DTOs\Command\Auth\ResetPasswordDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\PasswordReset;

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Auth;
 
-use App\DTOs\Auth\ForgotPasswordDTO;
+use App\DTOs\Command\Auth\ForgotPasswordDTO;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\User;
+namespace App\DTOs\Read\User;
 
 use App\DTOs\BaseDTO;
 use App\Models\Profile;

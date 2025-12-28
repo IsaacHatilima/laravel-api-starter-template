@@ -1,9 +1,8 @@
 <?php
 
-namespace App\DTOs\Auth;
+namespace App\DTOs\Read\User;
 
 use App\DTOs\BaseDTO;
-use App\DTOs\User\UserDTO;
 
 /**
  * @extends BaseDTO<string, mixed>

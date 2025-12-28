@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\SendResetPasswordLinkAction;
-use App\DTOs\Auth\ForgotPasswordDTO;
+use App\DTOs\Command\Auth\ForgotPasswordDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use Illuminate\Http\JsonResponse;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Auth\ResetPasswordAction;
 use App\Actions\Auth\VerifyResetPasswordAction;
-use App\DTOs\Auth\ResetPasswordDTO;
+use App\DTOs\Command\Auth\ResetPasswordDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\Http\JsonResponse;

@@ -2,7 +2,7 @@
 
 namespace App\Actions\Auth;
 
-use App\DTOs\Auth\RegisterDTO;
+use App\DTOs\Command\Auth\RegisterDTO;
 use App\Jobs\SendVerificationEmailJob;
 use App\Models\User;
 use App\Repositories\UserRepository;
