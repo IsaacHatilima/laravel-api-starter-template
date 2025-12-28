@@ -4,11 +4,17 @@ namespace App\Actions\Auth;
 
 use App\DTOs\Command\Auth\LoginDTO;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 final readonly class LoginUserAction
 {
+    public function __construct(
+        private UserRepository $userRepository
+    ) {
+    }
+
     /**
      * @throws ValidationException
      */
@@ -22,7 +28,13 @@ final readonly class LoginUserAction
             return $user;
         }
 
-        return JWTAuth::fromUser($user);
+        $token = JWTAuth::fromUser($user);
+
+        $this->userRepository->update($user, [
+            'last_login_at' => now(),
+        ]);
+
+        return $token;
     }
 
     private function ensureUserIsValid(?User $user, LoginDTO $dto): User
