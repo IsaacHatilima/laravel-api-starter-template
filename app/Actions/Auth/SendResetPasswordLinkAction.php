@@ -6,7 +6,7 @@ use App\DTOs\Auth\ForgotPasswordDTO;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
-readonly class SendResetPasswordLinkAction
+final readonly class SendResetPasswordLinkAction
 {
     /**
      * @throws ValidationException

@@ -8,7 +8,7 @@ use App\DTOs\User\UserDTO;
 /**
  * @extends BaseDTO<string, mixed>
  */
-readonly class AuthResponseDTO extends BaseDTO
+final readonly class AuthResponseDTO extends BaseDTO
 {
     public function __construct(
         public UserDTO $user,

@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property-read User $user
  */
-class Profile extends Model
+final class Profile extends Model
 {
     /** @use HasFactory<ProfileFactory> */
     use HasFactory;

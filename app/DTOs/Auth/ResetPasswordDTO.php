@@ -8,11 +8,10 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 /**
  * @extends BaseDTO<string, mixed>
  */
-readonly class ResetPasswordDTO extends BaseDTO
+final readonly class ResetPasswordDTO extends BaseDTO
 {
     public function __construct(
         public string $password,
-        public string $passwordConfirmation,
     ) {
     }
 
@@ -20,7 +19,6 @@ readonly class ResetPasswordDTO extends BaseDTO
     {
         return new self(
             password: $request->string('password')->value(),
-            passwordConfirmation: $request->string('password_confirmation')->value(),
         );
     }
 
@@ -31,7 +29,6 @@ readonly class ResetPasswordDTO extends BaseDTO
     {
         return [
             'password' => $this->password,
-            'password_confirmation' => $this->passwordConfirmation,
         ];
     }
 }

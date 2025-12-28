@@ -8,7 +8,7 @@ use App\Http\Requests\Auth\ForgotPasswordRequest;
 /**
  * @extends BaseDTO<string, mixed>
  */
-readonly class ForgotPasswordDTO extends BaseDTO
+final readonly class ForgotPasswordDTO extends BaseDTO
 {
     public function __construct(
         public string $email,

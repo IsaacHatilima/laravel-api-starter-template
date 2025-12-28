@@ -5,7 +5,7 @@ namespace App\Actions\Auth;
 use App\Models\User;
 use App\Repositories\UserRepository;
 
-readonly class EndAllSessionsAction
+final readonly class EndAllSessionsAction
 {
     public function __construct(
         private UserRepository $userRepository

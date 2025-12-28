@@ -7,7 +7,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
-readonly class VerifyResetPasswordAction
+final readonly class VerifyResetPasswordAction
 {
     public function __construct(
         private UserRepository $userRepository

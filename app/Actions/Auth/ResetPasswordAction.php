@@ -9,7 +9,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-readonly class ResetPasswordAction
+final readonly class ResetPasswordAction
 {
     public function __construct(
         private UserRepository $userRepository

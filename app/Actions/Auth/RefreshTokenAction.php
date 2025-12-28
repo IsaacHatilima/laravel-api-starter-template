@@ -4,7 +4,7 @@ namespace App\Actions\Auth;
 
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-readonly class RefreshTokenAction
+final readonly class RefreshTokenAction
 {
     public function execute(string $token): string
     {

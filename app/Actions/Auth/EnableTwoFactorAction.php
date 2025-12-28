@@ -7,7 +7,7 @@ use JsonException;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use RuntimeException;
 
-readonly class EnableTwoFactorAction
+final readonly class EnableTwoFactorAction
 {
     public function __construct(
         private EnableTwoFactorAuthentication $enableTwoFactors

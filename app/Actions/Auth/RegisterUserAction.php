@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
 
-readonly class RegisterUserAction
+final readonly class RegisterUserAction
 {
     public function __construct(
         private UserRepository $userRepository
@@ -34,9 +34,11 @@ readonly class RegisterUserAction
                 'last_name' => $dto->lastName,
             ]);
 
-            SendVerificationEmailJob::dispatch($user);
+            $user->load('profile');
 
-            return $user->load('profile');
+            SendVerificationEmailJob::dispatch($user)->afterCommit();
+
+            return $user;
         });
     }
 }

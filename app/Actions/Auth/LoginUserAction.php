@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-readonly class LoginUserAction
+final readonly class LoginUserAction
 {
     /**
      * @throws ValidationException

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 
-readonly class ConfirmTwoFactorAction
+final readonly class ConfirmTwoFactorAction
 {
     public function __construct(
         private ConfirmTwoFactorAuthentication $confirmTwoFactor

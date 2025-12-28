@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Notifications\VerifyEmailWithPublicId;
 use App\Traits\HasPublicUuid;
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -22,11 +22,11 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property bool $is_active
- * @property Carbon|null $two_factor_confirmed_at
- * @property Carbon|null $email_verified_at
- * @property Carbon|null $last_login_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property CarbonInterface|null $two_factor_confirmed_at
+ * @property CarbonInterface|null $email_verified_at
+ * @property CarbonInterface|null $last_login_at
+ * @property CarbonInterface|null $created_at
+ * @property CarbonInterface|null $updated_at
  * @property int $token_version
  *
  * @property-read Profile $profile
@@ -34,7 +34,7 @@ use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
  * @method void enableTwoFactorAuthentication()
  * @method string twoFactorQrCodeSvg()
  */
-class User extends Authenticatable implements JWTSubject
+final class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;

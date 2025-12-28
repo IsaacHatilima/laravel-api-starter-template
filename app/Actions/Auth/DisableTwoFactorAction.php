@@ -7,7 +7,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-readonly class DisableTwoFactorAction
+final readonly class DisableTwoFactorAction
 {
     public function __construct(
         private UserRepository $userRepository

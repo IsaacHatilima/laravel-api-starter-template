@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-readonly class EmailVerificationAction
+final readonly class EmailVerificationAction
 {
     public function execute(string $id): AuthResponseDTO
     {
