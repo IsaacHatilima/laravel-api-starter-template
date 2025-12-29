@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Settings;
 
 use App\Actions\V1\Settings\ProfileUpdateAction;
 use App\DTOs\V1\Command\Settings\ProfileUpdateRequestDTO;
+use App\DTOs\V1\Read\User\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Settings\ProfileUpdateRequest;
 use App\Traits\InteractsWithAuth;
@@ -27,8 +28,11 @@ class UpdateProfileController extends Controller
 
         $dto = ProfileUpdateRequestDTO::fromRequest($request);
 
-        $this->action->execute($dto, $user);
+        $user = $this->action->execute($dto, $user);
 
-        return response()->json(['message', 'Profile updated successfully']);
+        return $this->ok(
+            data: UserDTO::fromModel($user)->toArray(),
+            message: 'User updated successfully'
+        );
     }
 }

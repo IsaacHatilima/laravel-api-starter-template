@@ -6,7 +6,7 @@ it('can refresh a token', function () {
     $user = createUser();
     $token = auth('api')->login($user);
 
-    $response = postJson('/api/auth/refresh-token', [], [
+    $response = postJson('/api/v1/auth/refresh-token', [], [
         'Authorization' => 'Bearer '.$token,
     ]);
 

@@ -12,7 +12,7 @@ it('can request a password reset link', function () {
     Notification::fake();
     $user = User::factory()->create(['email' => 'test@example.com']);
 
-    $response = $this->postJson('/api/auth/forgot-password', [
+    $response = $this->postJson('/api/v1/auth/forgot-password', [
         'email' => 'test@example.com',
     ]);
 
@@ -26,7 +26,6 @@ it('can request a password reset link', function () {
             'id' => $user->public_id,
         ], false));
 
-        // Reflect to get protected method resetUrl result
         $reflection = new ReflectionClass($notification);
         $method = $reflection->getMethod('resetUrl');
         $method->setAccessible(true);
@@ -44,7 +43,7 @@ it('can reset password with a valid token', function () {
 
     $token = Password::broker()->createToken($user);
 
-    $response = $this->postJson('/api/auth/set-password?id='.$user->public_id, [
+    $response = $this->postJson('/api/v1/auth/set-password?id='.$user->public_id, [
         'token' => $token,
         'password' => 'NewPassword123!',
         'password_confirmation' => 'NewPassword123!',
@@ -63,7 +62,7 @@ it('cannot reset password without a token in database', function () {
         'password' => Hash::make('OldPassword123!'),
     ]);
 
-    $response = $this->postJson('/api/auth/set-password?id='.$user->public_id, [
+    $response = $this->postJson('/api/v1/auth/set-password?id='.$user->public_id, [
         'token' => 'some-token',
         'password' => 'NewPassword123!',
         'password_confirmation' => 'NewPassword123!',

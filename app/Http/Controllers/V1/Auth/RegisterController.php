@@ -26,7 +26,7 @@ class RegisterController extends Controller
         $user = $this->registerAction->execute($dto);
 
         return $this->ok(
-            data: UserDTO::fromModel($user),
+            data: UserDTO::fromModel($user)->toArray(),
             message: 'User registered successfully',
             code: 201
         );

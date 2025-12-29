@@ -8,7 +8,7 @@ it('can login a user', function () {
         'password' => 'Password123!',
     ]);
 
-    $response = postJson('/api/auth/login', [
+    $response = postJson('/api/v1/auth/login', [
         'email' => 'test@example.com',
         'password' => 'Password123!',
     ]);
@@ -30,7 +30,7 @@ it('cannot login with invalid credentials', function () {
         'password' => 'Password123!',
     ]);
 
-    $response = postJson('/api/auth/login', [
+    $response = postJson('/api/v1/auth/login', [
         'email' => 'test@example.com',
         'password' => 'wrong-password',
     ]);

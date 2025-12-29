@@ -21,8 +21,9 @@ class MeController extends Controller
 
         $user->load('profile');
 
-        return response()->json(
-            UserDTO::fromModel($user)
+        return $this->ok(
+            data: UserDTO::fromModel($user)->toArray(),
+            message: 'User retrieved successfully'
         );
     }
 }

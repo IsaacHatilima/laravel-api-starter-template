@@ -3,7 +3,7 @@
 use function Pest\Laravel\postJson;
 
 it('can register a user', function () {
-    $response = postJson('/api/auth/register', [
+    $response = postJson('/api/v1/auth/register', [
         'first_name' => 'John',
         'last_name' => 'Doe',
         'email' => 'john@example.com',
@@ -13,9 +13,12 @@ it('can register a user', function () {
 
     $response->assertStatus(201)
         ->assertJsonStructure([
-            'public_id',
-            'email',
-        ]);
+            'data' => [
+                'public_id',
+                'email',
+            ],
+        ])
+        ->assertJsonPath('success', true);
 
     $this->assertDatabaseHas('users', [
         'email' => 'john@example.com',
@@ -25,7 +28,7 @@ it('can register a user', function () {
 it('fails to register with existing email', function () {
     createUser(['email' => 'existing@example.com']);
 
-    $response = postJson('/api/auth/register', [
+    $response = postJson('/api/v1/auth/register', [
         'first_name' => 'Jane',
         'last_name' => 'Doe',
         'email' => 'existing@example.com',
@@ -34,11 +37,12 @@ it('fails to register with existing email', function () {
     ]);
 
     $response->assertStatus(422)
-        ->assertJsonValidationErrors(['email']);
+        ->assertJsonValidationErrors(['email'])
+        ->assertJsonPath('success', false);
 });
 
 it('fails registration with weak password', function () {
-    $response = postJson('/api/auth/register', [
+    $response = postJson('/api/v1/auth/register', [
         'first_name' => 'John',
         'last_name' => 'Doe',
         'email' => 'weak@example.com',
@@ -47,5 +51,6 @@ it('fails registration with weak password', function () {
     ]);
 
     $response->assertStatus(422)
-        ->assertJsonValidationErrors(['password']);
+        ->assertJsonValidationErrors(['password'])
+        ->assertJsonPath('success', false);
 });
