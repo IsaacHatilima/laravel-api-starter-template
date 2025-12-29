@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="InertiaPackage">
+    <option name="directoryPaths">
+      <list />
+    </option>
+  </component>
+  <component name="LaravelIdeaMainSettings">
+    <option name="codeGeneration">
+      <LaravelCodeGeneration>
+        <option name="customGenerations">
+          <list>
+            <CustomGeneration>
+              <option name="baseClass" value="App\Repositories\Repository" />
+              <option name="classSuffix" value="Repository" />
+              <option name="namespace" value="App\Repositories" />
+              <option name="parameters">
+                <list>
+                  <CustomParameter>
+                    <option name="id" value="cd480554-00d0-4dbc-b577-95b2aa271f5a" />
+                    <option name="optional" value="false" />
+                    <option name="templateVariableName" value="MODEL_CLASS" />
+                    <option name="title" value="Model Class" />
+                    <option name="type" value="eloquent_class" />
+                  </CustomParameter>
+                </list>
+              </option>
+              <option name="templateName" value="Laravel Idea Repository" />
+              <option name="title" value="Create Repository" />
+            </CustomGeneration>
+            <CustomGeneration>
+              <option name="baseClass" value="App\Actions\Action" />
+              <option name="classSuffix" value="Action" />
+              <option name="namespace" value="Action" />
+              <option name="parameters">
+                <list>
+                  <CustomParameter>
+                    <option name="id" value="24ee9d60-108f-4a9c-8d12-0937ef0f01c6" />
+                    <option name="title" value="Action Class" />
+                    <option name="type" value="class" />
+                  </CustomParameter>
+                </list>
+              </option>
+              <option name="templateName" value="Laravel Ideal Action" />
+              <option name="title" value="Create Action" />
+            </CustomGeneration>
+          </list>
+        </option>
+        <option name="generationBooleanSettings">
+          <map>
+            <entry key="createClass:inTheNewMenu" value="true" />
+            <entry key="createEnum:inTheNewMenu" value="true" />
+            <entry key="createMiddleware:inTheNewMenu" value="true" />
+            <entry key="createPolicy:inTheNewMenu" value="true" />
+            <entry key="createResourceController:inTheNewMenu" value="true" />
+          </map>
+        </option>
+        <option name="generationStringSettings">
+          <map>
+            <entry key="createBladeComponent:classSuffix" value="" />
+            <entry key="createClass:classSuffix" value="" />
+            <entry key="createController:classSuffix" value="Controller" />
+            <entry key="createEloquentCast:classSuffix" value="Cast" />
+            <entry key="createEloquentScope:classSuffix" value="Scope" />
+            <entry key="createEloquentScope:namespace" value="Models\Scopes" />
+            <entry key="createEnum:classSuffix" value="" />
+            <entry key="createEvent:classSuffix" value="Event" />
+            <entry key="createFacade:classSuffix" value="" />
+            <entry key="createFeatureTest:classSuffix" value="Test" />
+            <entry key="createFormRequest:classSuffix" value="Request" />
+            <entry key="createHttpException:classSuffix" value="Exception" />
+            <entry key="createJob:classSuffix" value="Job" />
+            <entry key="createListener:classSuffix" value="Listener" />
+            <entry key="createMiddleware:classSuffix" value="Middleware" />
+            <entry key="createModel:classSuffix" value="" />
+            <entry key="createModel:namespace" value="Models" />
+            <entry key="createObserver:classSuffix" value="Observer" />
+            <entry key="createPolicy:classSuffix" value="Policy" />
+            <entry key="createResourceController:classSuffix" value="Controller" />
+            <entry key="createRule:classSuffix" value="Rule" />
+            <entry key="createService:classSuffix" value="Service" />
+            <entry key="createServiceProvider:classSuffix" value="ServiceProvider" />
+            <entry key="createTrait:classSuffix" value="" />
+            <entry key="createUnitTest:classSuffix" value="Test" />
+            <entry key="createViewComposer:classSuffix" value="ViewComposer" />
+          </map>
+        </option>
+      </LaravelCodeGeneration>
+    </option>
+    <option name="frameworkFound" value="true" />
+    <option name="userClassName" value="\App\Models\User" />
+  </component>
+</project>

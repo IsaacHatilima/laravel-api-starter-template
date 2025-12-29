@@ -6,14 +6,9 @@ use App\Models\User;
 
 final readonly class UserRepository
 {
-    public function __construct(
-        private User $model
-    ) {
-    }
-
     public function find(string $public_id): ?User
     {
-        return $this->model
+        return User::query()
             ->with('profile')
             ->where('public_id', $public_id)
             ->first();
@@ -24,7 +19,7 @@ final readonly class UserRepository
      */
     public function findBy(array $criteria): ?User
     {
-        return $this->model
+        return User::query()
             ->with('profile')
             ->where($criteria)
             ->first();
@@ -32,7 +27,7 @@ final readonly class UserRepository
 
     public function findByEmail(string $email): ?User
     {
-        return $this->model
+        return User::query()
             ->with('profile')
             ->where('email', $email)
             ->first();
@@ -43,9 +38,7 @@ final readonly class UserRepository
      */
     public function create(array $data): User
     {
-        return $this->model
-            ->query()
-            ->create($data);
+        return User::query()->create($data);
     }
 
     /**
