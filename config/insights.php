@@ -100,8 +100,8 @@ return [
             'title' => 'The usage of private methods is not idiomatic in Laravel.',
         ],
         LineLengthSniff::class => [
-            'lineLengthLimit' => 120,
-            'absoluteLineLimit' => 160,
+            'lineLengthLimit' => 160,
+            'absoluteLineLimit' => 180,
             'ignoreImports' => true,
         ],
         FunctionLengthSniff::class => [

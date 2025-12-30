@@ -42,11 +42,13 @@ class TwoFactorManagerController extends Controller
             ], 409);
         }
 
-        return response()->json([
-            'message' => '2FA enabled. Please scan QR code and confirm with a code',
-            'qr_code' => $result['qr_code'],
-            'recovery_codes' => $result['recovery_codes'],
-        ]);
+        return $this->success(
+            data: [
+                'qr_code' => $result['qr_code'],
+                'recovery_codes' => $result['recovery_codes'],
+            ],
+            message: '2FA enabled. Please scan QR code and confirm with a code'
+        );
     }
 
     /**
@@ -62,7 +64,7 @@ class TwoFactorManagerController extends Controller
             return response()->json(['message' => 'Invalid verification code'], 422);
         }
 
-        return response()->json(['message' => '2FA confirmed successfully']);
+        return $this->success(message: '2FA confirmed successfully');
     }
 
     /**
@@ -80,6 +82,6 @@ class TwoFactorManagerController extends Controller
             ], 409);
         }
 
-        return response()->json(['message' => '2FA disabled successfully']);
+        return $this->success(message: '2FA disabled successfully');
     }
 }

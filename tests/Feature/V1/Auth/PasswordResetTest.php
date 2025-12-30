@@ -16,8 +16,8 @@ it('can request a password reset link', function () {
         'email' => 'test@example.com',
     ]);
 
-    $response->assertSuccessful();
-    $response->assertJson(['message' => __(Password::RESET_LINK_SENT)]);
+    $response->assertSuccessful()
+        ->assertJsonPath('message', 'Reset password link sent successfully');
 
     Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) use ($user) {
         $token = $notification->token;
@@ -49,8 +49,8 @@ it('can reset password with a valid token', function () {
         'password_confirmation' => 'NewPassword123!',
     ]);
 
-    $response->assertSuccessful();
-    $response->assertJson(['message' => __('Password reset successful')]);
+    $response->assertSuccessful()
+        ->assertJsonPath('message', 'Password changed successfully');
 
     $user->refresh();
     expect(Hash::check('NewPassword123!', $user->password))->toBeTrue();
@@ -68,6 +68,6 @@ it('cannot reset password without a token in database', function () {
         'password_confirmation' => 'NewPassword123!',
     ]);
 
-    $response->assertStatus(422);
-    $response->assertJsonValidationErrors(['id']);
+    $response->assertStatus(404);
+    $response->assertJsonPath('message', 'Invalid password reset token.');
 });

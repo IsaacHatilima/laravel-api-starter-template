@@ -21,9 +21,9 @@ class MeController extends Controller
 
         $user->load('profile');
 
-        return $this->ok(
+        return $this->success(
             data: UserDTO::fromModel($user)->toArray(),
-            message: 'User retrieved successfully'
+            message: 'User retrieved successfully',
         );
     }
 }

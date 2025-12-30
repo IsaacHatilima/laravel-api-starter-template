@@ -12,7 +12,6 @@ final readonly class AuthResponseDTO extends BaseDTO
     public function __construct(
         public UserDTO $user,
         public string $token,
-        public string $tokenType = 'bearer',
     ) {
     }
 
@@ -26,7 +25,6 @@ final readonly class AuthResponseDTO extends BaseDTO
         return [
             'user' => $this->user->toArray(),
             'token' => $this->token,
-            'token_type' => $this->tokenType,
         ];
     }
 }

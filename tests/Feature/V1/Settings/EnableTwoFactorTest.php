@@ -18,8 +18,10 @@ it('can enable 2FA', function () {
         ->assertStatus(200)
         ->assertJsonStructure([
             'message',
-            'qr_code',
-            'recovery_codes',
+            'data' => [
+                'qr_code',
+                'recovery_codes',
+            ],
         ])
         ->assertJsonPath('message', '2FA enabled. Please scan QR code and confirm with a code');
 

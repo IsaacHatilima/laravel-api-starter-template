@@ -45,9 +45,17 @@ it('can login with two-factor code', function () {
         'code' => '123456',
     ]);
 
-    $response->assertOk();
-    $response->assertJsonStructure(['user', 'token']);
-    expect($response->json('user.email'))->toBe($user->email);
+    $response->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                'user' => [
+                    'public_id',
+                    'email',
+                ],
+                'token',
+            ],
+        ]);
+    expect($response->json('data.user.email'))->toBe('2fa-success@example.com');
 });
 
 it('can login with recovery code', function () {
@@ -69,8 +77,16 @@ it('can login with recovery code', function () {
         'recovery_code' => 'recovery-code',
     ]);
 
-    $response->assertOk();
-    $response->assertJsonStructure(['user', 'token']);
+    $response->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                'user' => [
+                    'public_id',
+                    'email',
+                ],
+                'token',
+            ],
+        ]);
 
     $user->refresh();
     expect($user->recoveryCodes())->not->toContain('recovery-code');
@@ -144,5 +160,14 @@ it('does not require two-factor code if disabled during login', function () {
     ]);
 
     $response->assertOk();
-    $response->assertJsonStructure(['user', 'token']);
+    $response->assertOk()
+        ->assertJsonStructure([
+            'data' => [
+                'user' => [
+                    'public_id',
+                    'email',
+                ],
+                'token',
+            ],
+        ]);
 });

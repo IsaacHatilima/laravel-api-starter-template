@@ -23,9 +23,6 @@ class RefreshTokenController extends Controller
 
         $token = $this->refreshTokenAction->execute($token);
 
-        return response()->json([
-            'token' => $token,
-            'token_type' => 'bearer',
-        ]);
+        return $this->success(data: ['token' => $token]);
     }
 }

@@ -11,10 +11,8 @@ class EmailVerificationController extends Controller
 {
     public function __invoke(Request $request, EmailVerificationAction $action): JsonResponse
     {
-        $id = $request->query('id');
+        $action->execute($request);
 
-        $response = $action->execute($id);
-
-        return response()->json($response);
+        return $this->success(null, 'Email verified successfully');
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 trait ApiResponser
 {
     /**
+     * Core response orchestrator.
+     *
      * @param array<string, mixed>|null $meta
      * @param array<string, mixed>|null $errors
      */
@@ -16,7 +19,7 @@ trait ApiResponser
         mixed $data = null,
         ?array $meta = null,
         ?array $errors = null,
-        int $code = 200
+        int $code = Response::HTTP_OK
     ): JsonResponse {
         return response()->json([
             'success' => $success,
@@ -28,22 +31,33 @@ trait ApiResponser
     }
 
     /**
-     * Happy Path Helper
+     * 200 OK - Standard success response.
      *
      * @param array<string, mixed>|null $meta
      */
-    protected function ok(mixed $data, string $message = 'Success', int $code = 200, ?array $meta = null): JsonResponse
+    protected function success(mixed $data = null, string $message = 'Success', ?array $meta = null): JsonResponse
     {
-        return $this->respond(true, $message, $data, $meta, null, $code);
+        return $this->respond(true, $message, $data, $meta);
     }
 
     /**
-     * Error Path Helper
+     * 201 Created - Resource successfully created.
+     */
+    protected function created(mixed $data, string $message = 'Resource created successfully'): JsonResponse
+    {
+        return $this->respond(true, $message, $data, null, null, Response::HTTP_CREATED);
+    }
+
+    /**
+     * 400 Bad Request - General client-side error.
      *
      * @param array<string, mixed>|null $errors
      */
-    protected function fail(string $message, int $code = 400, ?array $errors = null): JsonResponse
-    {
+    protected function fail(
+        string $message = 'Bad request',
+        int $code = Response::HTTP_BAD_REQUEST,
+        ?array $errors = null
+    ): JsonResponse {
         return $this->respond(false, $message, null, null, $errors, $code);
     }
 }

@@ -24,10 +24,10 @@ class EndAllSessionsController extends Controller
     {
         $user = $this->user();
 
-        $message = $this->endAllSessionsAction->execute($user);
+        $this->endAllSessionsAction->execute($user);
 
-        return response()->json([
-            'message' => $message,
-        ]);
+        return $this->success(
+            message: 'All sessions ended successfully'
+        );
     }
 }

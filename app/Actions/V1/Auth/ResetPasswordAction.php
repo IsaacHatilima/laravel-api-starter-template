@@ -16,7 +16,7 @@ final readonly class ResetPasswordAction
     ) {
     }
 
-    public function execute(ResetPasswordDTO $dto, User $user): string
+    public function execute(ResetPasswordDTO $dto, User $user): void
     {
         $user = $this->userRepository->update(
             $user,
@@ -27,7 +27,5 @@ final readonly class ResetPasswordAction
         );
 
         event(new PasswordReset($user));
-
-        return __('Password reset successful');
     }
 }

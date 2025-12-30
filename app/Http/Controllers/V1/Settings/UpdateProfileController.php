@@ -30,7 +30,7 @@ class UpdateProfileController extends Controller
 
         $user = $this->action->execute($dto, $user);
 
-        return $this->ok(
+        return $this->success(
             data: UserDTO::fromModel($user)->toArray(),
             message: 'User updated successfully'
         );

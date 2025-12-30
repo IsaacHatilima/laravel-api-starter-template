@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Middleware\RejectInvalidJsonMiddleware;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,15 +24,22 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (ValidationException $e, Request $request) {
+        $exceptions->render(function (Throwable $e, Request $request) {
             if ($request->is('api/*')) {
+                $code = match (true) {
+                    $e instanceof ValidationException => 422,
+                    $e instanceof AuthenticationException => 401,
+                    $e instanceof ModelNotFoundException => 404,
+                    $e instanceof InvalidSignatureException => 403,
+                    $e instanceof HttpExceptionInterface => $e->getStatusCode(),
+                    default => 500,
+                };
+
                 return response()->json([
                     'success' => false,
-                    'message' => $e->getMessage(),
-                    'data' => null,
-                    'meta' => null,
-                    'errors' => $e->errors(),
-                ], 422);
+                    'message' => $e->getMessage() ?: 'An error occurred.',
+                    'errors' => ($e instanceof ValidationException) ? $e->errors() : null,
+                ], $code);
             }
         });
     })->create();

@@ -16,6 +16,6 @@ class LogoutController extends Controller
     {
         $this->logoutAction->execute();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->success(message: 'Successfully logged out');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Actions\V1\Auth;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -22,17 +23,13 @@ final readonly class VerifyResetPasswordAction
         $user = $this->userRepository->find($id);
 
         if (! $user) {
-            throw ValidationException::withMessages([
-                'id' => ['User not found'],
-            ]);
+            throw new ModelNotFoundException('User not found.');
         }
 
         $passwordToken = DB::table('password_reset_tokens')->where('email', $user->email)->first();
 
         if (! $passwordToken) {
-            throw ValidationException::withMessages([
-                'id' => ['User not found'],
-            ]);
+            throw new ModelNotFoundException('Invalid password reset token.');
         }
 
         return $user;

@@ -12,7 +12,6 @@ it('can refresh a token', function () {
 
     $response->assertOk()
         ->assertJsonStructure([
-            'token',
-            'token_type',
+            'data' => ['token'],
         ]);
 });

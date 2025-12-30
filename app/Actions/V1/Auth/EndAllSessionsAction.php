@@ -12,7 +12,7 @@ final readonly class EndAllSessionsAction
     ) {
     }
 
-    public function execute(User $user): string
+    public function execute(User $user): void
     {
         $this->userRepository->update(
             $user,
@@ -20,7 +20,5 @@ final readonly class EndAllSessionsAction
                 'token_version' => $user->token_version + 1,
             ]
         );
-
-        return __('All sessions ended');
     }
 }

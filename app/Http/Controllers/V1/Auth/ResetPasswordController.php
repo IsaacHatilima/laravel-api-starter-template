@@ -23,9 +23,7 @@ class ResetPasswordController extends Controller
     {
         $this->verifyAction->execute($request->query('id'));
 
-        return response()->json([
-            'message' => 'Token verified successfully',
-        ]);
+        return $this->success(message: 'Password reset link verified successfully');
     }
 
     /**
@@ -36,10 +34,8 @@ class ResetPasswordController extends Controller
         $user = $this->verifyAction->execute($request->query('id'));
 
         $dto = ResetPasswordDTO::fromRequest($request);
-        $message = $this->resetPasswordAction->execute($dto, $user);
+        $this->resetPasswordAction->execute($dto, $user);
 
-        return response()->json([
-            'message' => $message,
-        ]);
+        return $this->success(message: 'Password changed successfully');
     }
 }

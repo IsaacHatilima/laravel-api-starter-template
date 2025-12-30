@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -22,11 +21,7 @@ class LoginController extends Controller
     {
         $dto = LoginDTO::fromRequest($request);
 
-        try {
-            $result = $this->loginAction->execute($dto);
-        } catch (ValidationException $e) {
-            return response()->json(['message' => $e->getMessage()], 401);
-        }
+        $result = $this->loginAction->execute($dto);
 
         if ($result->requiresTwoFactor) {
             $request->session()->put([
@@ -40,11 +35,11 @@ class LoginController extends Controller
         /** @var User $user */
         $user = $result->user;
 
-        $response = new AuthResponseDTO(
-            user: UserDTO::fromModel($user->load('profile')),
+        $response = (new AuthResponseDTO(
+            user: UserDTO::fromModel($user),
             token: (string) $result->token,
-        );
+        ))->toArray();
 
-        return response()->json($response);
+        return $this->success(data: $response);
     }
 }

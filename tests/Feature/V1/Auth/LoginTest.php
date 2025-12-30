@@ -15,12 +15,13 @@ it('can login a user', function () {
 
     $response->assertOk()
         ->assertJsonStructure([
-            'user' => [
-                'public_id',
-                'email',
+            'data' => [
+                'user' => [
+                    'public_id',
+                    'email',
+                ],
+                'token',
             ],
-            'token',
-            'token_type',
         ]);
 });
 
@@ -35,5 +36,6 @@ it('cannot login with invalid credentials', function () {
         'password' => 'wrong-password',
     ]);
 
-    $response->assertStatus(401);
+    $response->assertStatus(422)
+        ->assertJsonPath('errors.email.0', 'The provided credentials are incorrect');
 });

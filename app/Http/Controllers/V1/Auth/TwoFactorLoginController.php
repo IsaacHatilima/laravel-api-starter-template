@@ -23,11 +23,11 @@ class TwoFactorLoginController extends Controller
 
         $token = $this->twoFactorLoginAction->execute($request, $user);
 
-        $response = new AuthResponseDTO(
+        $response = (new AuthResponseDTO(
             user: UserDTO::fromModel($user->load('profile')),
             token: $token,
-        );
+        ))->toArray();
 
-        return response()->json($response);
+        return $this->success(data: $response);
     }
 }
