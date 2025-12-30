@@ -3,6 +3,7 @@
 namespace App\Actions\V1\Settings;
 
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 use JsonException;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use RuntimeException;
@@ -40,28 +41,28 @@ final readonly class EnableTwoFactorAction
     /**
      * @return array<int, string>
      *
-     * @throws JsonException|RuntimeException
+     * @throws JsonException|ValidationException
      */
     private function getDecodedRecoveryCodes(User $user): array
     {
         $raw = $user->two_factor_recovery_codes
-            ?? throw new RuntimeException('Two-factor recovery codes are missing');
+            ?? throw ValidationException::withMessages(['two_factor' => 'Two-factor recovery codes are missing']);
 
         $decoded = decrypt($raw);
 
         if (! is_string($decoded)) {
-            throw new RuntimeException('Invalid recovery codes payload');
+            throw ValidationException::withMessages(['two_factor' => 'Invalid recovery codes payload']);
         }
 
         $codes = json_decode($decoded, true, 512, JSON_THROW_ON_ERROR);
 
         if (! is_array($codes)) {
-            throw new RuntimeException('Invalid recovery codes payload');
+            throw ValidationException::withMessages(['two_factor' => 'Invalid recovery codes payload']);
         }
 
         return array_map(function (mixed $value): string {
             if (! is_scalar($value) && ! is_null($value)) {
-                throw new RuntimeException('Invalid recovery code type encountered');
+                throw ValidationException::withMessages(['two_factor' => 'Invalid recovery code type encountered']);
             }
 
             return (string) $value;
@@ -71,7 +72,7 @@ final readonly class EnableTwoFactorAction
     private function guardNotAlreadyEnabled(User $user): void
     {
         if ($user->two_factor_secret !== null) {
-            throw new RuntimeException('Two-factor authentication is already enabled');
+            throw ValidationException::withMessages(['two_factor' => 'Two-factor authentication is already enabled']);
         }
     }
 }

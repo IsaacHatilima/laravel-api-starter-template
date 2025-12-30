@@ -2,7 +2,7 @@
 
 namespace App\Actions\V1\Auth;
 
-use App\Models\User;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -10,6 +10,11 @@ use Illuminate\Validation\ValidationException;
 
 final readonly class EmailVerificationAction
 {
+    public function __construct(
+        private UserRepository $userRepository
+    ) {
+    }
+
     public function execute(Request $request): void
     {
         $expires = Carbon::createFromTimestamp(
@@ -22,7 +27,7 @@ final readonly class EmailVerificationAction
             ]);
         }
 
-        $user = User::query()->where('public_id', $request->query('id'))->first();
+        $user = $this->userRepository->findOne(['public_id' => $request->query('id')]);
 
         if (! $user) {
             throw new ModelNotFoundException('User not found.');

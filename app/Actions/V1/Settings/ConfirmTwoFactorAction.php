@@ -14,8 +14,6 @@ final readonly class ConfirmTwoFactorAction
     }
 
     /**
-     * Confirm two-factor authentication for the user.
-     *
      * @throws ValidationException
      */
     public function execute(User $user, string $code): void

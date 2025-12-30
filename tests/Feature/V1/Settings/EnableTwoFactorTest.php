@@ -41,6 +41,7 @@ it('cannot enable 2FA if already enabled', function () {
     $response = postJson('/api/v1/auth/2fa-enable');
 
     $response
-        ->assertStatus(409)
-        ->assertJsonPath('message', 'Two-factor authentication is already enabled');
+        ->assertStatus(422)
+        ->assertJsonPath('message', 'Two-factor authentication is already enabled')
+        ->assertJsonPath('errors.two_factor.0', 'Two-factor authentication is already enabled');
 });

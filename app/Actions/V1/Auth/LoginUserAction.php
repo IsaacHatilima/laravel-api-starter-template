@@ -21,7 +21,7 @@ final readonly class LoginUserAction
      */
     public function execute(LoginDTO $dto): TwoFactorAuthDTO
     {
-        $user = User::query()->where('email', $dto->email)->first();
+        $user = $this->userRepository->findOne(['email' => $dto->email]);
 
         $user = $this->ensureUserIsValid($user, $dto);
 

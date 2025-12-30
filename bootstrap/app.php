@@ -38,6 +38,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'success' => false,
                     'message' => $e->getMessage() ?: 'An error occurred.',
+                    'data' => null,
+                    'meta' => null,
                     'errors' => ($e instanceof ValidationException) ? $e->errors() : null,
                 ], $code);
             }
