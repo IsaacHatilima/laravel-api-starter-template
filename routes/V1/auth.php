@@ -42,4 +42,5 @@ Route::middleware(['auth:api', EnsureJwtVersionIsValidMiddleware::class])->prefi
     Route::post('2fa-enable', [TwoFactorManagerController::class, 'enable']);
     Route::post('2fa-confirm', [TwoFactorManagerController::class, 'confirm']);
     Route::post('2fa-disable', [TwoFactorManagerController::class, 'disable']);
+    Route::post('2fa-recovery-codes', [TwoFactorManagerController::class, 'generateRecoveryCodes']);
 });

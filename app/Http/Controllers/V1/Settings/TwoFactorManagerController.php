@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Settings;
 use App\Actions\V1\Settings\ConfirmTwoFactorAction;
 use App\Actions\V1\Settings\DisableTwoFactorAction;
 use App\Actions\V1\Settings\EnableTwoFactorAction;
+use App\Actions\V1\Settings\GenerateTwoFactorRecoveryCodesAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\TwoFactorCodeRequest;
 use App\Traits\InteractsWithAuth;
@@ -23,6 +24,7 @@ class TwoFactorManagerController extends Controller
         private readonly EnableTwoFactorAction $enableTwoFactorAction,
         private readonly ConfirmTwoFactorAction $confirmTwoFactorAction,
         private readonly DisableTwoFactorAction $disableTwoFactorAction,
+        private readonly GenerateTwoFactorRecoveryCodesAction $generateTwoFactorRecoveryCodesAction,
     ) {
     }
 
@@ -83,5 +85,23 @@ class TwoFactorManagerController extends Controller
         }
 
         return $this->success(message: '2FA disabled successfully');
+    }
+
+    /**
+     * @throws JsonException
+     * @throws AuthenticationException
+     */
+    public function generateRecoveryCodes(): JsonResponse
+    {
+        $user = $this->user();
+
+        $recoveryCodes = $this->generateTwoFactorRecoveryCodesAction->execute($user);
+
+        return $this->success(
+            data: [
+                'recovery_codes' => $recoveryCodes,
+            ],
+            message: '2FA recovery codes regenerated successfully'
+        );
     }
 }

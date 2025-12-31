@@ -24,6 +24,6 @@ class DeleteProfileController extends Controller
 
         $this->action->execute($user);
 
-        return $this->deleted('Profile deleted successfully');
+        return $this->deleted();
     }
 }
