@@ -43,7 +43,6 @@ final readonly class UserRepository
     public function update(User $user, array $data): User
     {
         $user->update($data);
-        $user->load('profile');
 
         return $user;
     }
