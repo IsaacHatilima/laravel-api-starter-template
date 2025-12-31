@@ -33,7 +33,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Generate JWT Key
-        run: php jwt:secret
+        run: php artisan jwt:secret
 
       - name: Tests
         run: ./vendor/bin/pest
