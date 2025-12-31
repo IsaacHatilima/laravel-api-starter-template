@@ -1,0 +1,518 @@
+{
+  "info": {
+    "_postman_id": "09d4cbc6-bf74-4d99-96b1-47df74d05cae",
+    "name": "Laravel Starter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "id": "13bcdda5-c7f3-465c-8179-bc6cc088b8bb",
+      "name": "Auth",
+      "item": [
+        {
+          "id": "b1d72fe9-0494-41e6-86e4-008715023d0d",
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"johndoe@mail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/forgot-password",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "324d2387-281f-4463-a00d-2eb4ba831ad6",
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test2@mail.com\",\n  \"password\": \"Password1#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/login",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "c5bddf3b-5d24-484a-ab95-7a1f37d6b778",
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BaseURL}}/auth/refresh-token",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ],
+              "protocol": "https"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xhcmF2ZWwtYXBpLXN0YXJ0ZXIudGVzdC9hcGkvYXV0aC9sb2dpbiIsImlhdCI6MTc2Njk0OTcxNywiZXhwIjoxNzY2OTQ5Nzc3LCJuYmYiOjE3NjY5NDk3MTcsImp0aSI6IlpKTnIzeWl5b3lONWhRTGgiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInZlciI6MX0.z7eMTOxo2sneBbeqhG7Ll_lJrjpt3y9_VBd-FLa1KSI",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "9df898c4-3bdb-4ec7-9d75-adfca4fcadda",
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Mwamba\",\n  \"last_name\": \"Banda\",\n  \"email\": \"test2@mail.com\",\n  \"password\": \"Password1#\",\n  \"password_confirmation\": \"Password1#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/register",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "152c9f06-4659-45d6-bbda-405f56b1a8cd",
+          "name": "Set New Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"Password12#\",\n  \"password_confirmation\": \"Password12#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/set-password",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "set-password"
+              ],
+              "protocol": "https",
+              "query": [
+                {
+                  "key": "token",
+                  "value": "a7b33bb44bae32b7956c92c53041f75ae5bced5b45765654a1b528403dd79e94",
+                  "disabled": false
+                },
+                {
+                  "key": "id",
+                  "value": "2a225f7e-6148-476e-a525-0440d22d0599",
+                  "disabled": false
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "e85e0fea-b6f5-47a7-a532-a34b5a507217",
+          "name": "Two Factor Challenge",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"384586\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/two-factor-login",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "two-factor-login"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "a5e99db1-ad2d-4184-85c5-500ecc0b0b89",
+          "name": "Verify Email",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BaseURL}}/email-verification",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "email-verification"
+              ],
+              "protocol": "https",
+              "query": [
+                {
+                  "key": "expires",
+                  "value": "1767090147",
+                  "disabled": false
+                },
+                {
+                  "key": "hash",
+                  "value": "d0435033a8ad51fe7ea9386173f551435b3dfb21",
+                  "disabled": false
+                },
+                {
+                  "key": "id",
+                  "value": "be9cd236-6de3-4262-a904-8f61872ab34a",
+                  "disabled": false
+                },
+                {
+                  "key": "signature",
+                  "value": "fe4e9b6659810da9f23b4016cc7f1efe2a8dc5494af83f0c9d34ed839c42fd1b",
+                  "disabled": false
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "fd6cc61e-c20a-415c-a31f-9c5febed07b7",
+          "name": "Protected",
+          "item": [
+            {
+              "id": "9bdcb88e-0258-481c-acae-59d10ce78c72",
+              "name": "End All Sessions",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}/auth/end-all-sessions",
+                  "host": [
+                    "{{BaseURL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "end-all-sessions"
+                  ],
+                  "protocol": "https"
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "1c38d045-04f6-4c8a-803d-c968cf2288c3",
+              "name": "Logout",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}/auth/logout",
+                  "host": [
+                    "{{BaseURL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "logout"
+                  ],
+                  "protocol": "https"
+                }
+              },
+              "response": [],
+              "event": []
+            },
+            {
+              "id": "e0f933cb-f439-4061-ad24-f7e4b39be61c",
+              "name": "Me",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BaseURL}}/auth/me",
+                  "host": [
+                    "{{BaseURL}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "me"
+                  ],
+                  "protocol": "https"
+                }
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xhcmF2ZWwtYXBpLXN0YXJ0ZXIudGVzdC9hcGkvdjEvYXV0aC9sb2dpbiIsImlhdCI6MTc2NzAxODAyMiwiZXhwIjoxNzY3MDI1MjIyLCJuYmYiOjE3NjcwMTgwMjIsImp0aSI6Ink3bnZFS01xc2l6UUxlcTAiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInZlciI6MX0.Y9ZAdHSOTgUCf5itKrlbM2oJiJEsjiBTyhBlDqgPX9Q",
+                "type": "string"
+              }
+            ]
+          },
+          "variable": []
+        }
+      ],
+      "variable": []
+    },
+    {
+      "id": "41e23f22-a5f9-4a03-a9d8-2ac5b8937cb6",
+      "name": "Settings",
+      "item": [
+        {
+          "id": "262ebce2-2d06-4c07-bcb9-83975fdfd4c4",
+          "name": "Confirm 2FA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"341080\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/auth/2fa-confirm",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "2fa-confirm"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "eb40257b-5874-49b7-89c7-2c6486c905ae",
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"Password1#\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/settings/delete-profile",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "settings",
+                "delete-profile"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "d237749a-3d92-47fb-bb4f-d835c3c71526",
+          "name": "Disable 2FA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BaseURL}}/auth/2fa-disable",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "2fa-disable"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "aaf4b76d-e38e-42c8-abbe-46356d5994c8",
+          "name": "Enable 2FA",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BaseURL}}/auth/2fa-enable",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "auth",
+                "2fa-enable"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "1003445f-0f3d-4e94-b629-2ec669f3be93",
+          "name": "Profile Update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"\",\n  \"last_name\": \"Smith\",\n  \"email\": \"testmail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/settings/update-profile",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "settings",
+                "update-profile"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        },
+        {
+          "id": "e704678e-87a9-4570-9d0d-481f20596d18",
+          "name": "Update Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_password\": \"Password123!\",\n  \"password\": \"Password1234!\",\n  \"password_confirmation\": \"Password1234!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BaseURL}}/settings/update-password",
+              "host": [
+                "{{BaseURL}}"
+              ],
+              "path": [
+                "settings",
+                "update-password"
+              ],
+              "protocol": "https"
+            }
+          },
+          "response": [],
+          "event": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2xhcmF2ZWwtYXBpLXN0YXJ0ZXIudGVzdC9hcGkvdjEvYXV0aC9sb2dpbiIsImlhdCI6MTc2NzA5OTAwNywiZXhwIjoxNzY3MTA2MjA3LCJuYmYiOjE3NjcwOTkwMDcsImp0aSI6IjhpdGdSd0FOcjcwZ2hqaHEiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInZlciI6MX0.dNoalZ6IEhj86N6heqT_10YshmIRXzFVKZWxarjSdS0",
+            "type": "string"
+          }
+        ]
+      },
+      "variable": []
+    }
+  ],
+  "variable": [
+    {
+      "id": "e18151b7-3b13-4371-94e7-457e076a152e",
+      "key": "BaseURL",
+      "value": "https://laravel-api-starter.test/api/v1",
+      "type": "default"
+    }
+  ]
+}

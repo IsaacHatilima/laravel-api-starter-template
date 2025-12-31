@@ -8,5 +8,5 @@ use App\Http\Middleware\EnsureJwtVersionIsValidMiddleware;
 Route::middleware(['auth:api', EnsureJwtVersionIsValidMiddleware::class])->prefix('settings')->group(function () {
     Route::post('update-profile', UpdateProfileController::class);
     Route::post('update-password', UpdatePasswordController::class);
-    Route::post('delete-profile', DeleteProfileController::class);
+    Route::delete('delete-profile', DeleteProfileController::class);
 });

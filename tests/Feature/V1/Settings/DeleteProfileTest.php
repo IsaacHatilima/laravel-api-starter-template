@@ -1,6 +1,6 @@
 <?php
 
-use function Pest\Laravel\postJson;
+use function Pest\Laravel\deleteJson;
 
 it('user can delete profile', function () {
     $user = createUser([
@@ -10,7 +10,7 @@ it('user can delete profile', function () {
 
     loginUser($user);
 
-    $response = postJson('/api/v1/settings/delete-profile', [
+    $response = deleteJson('/api/v1/settings/delete-profile', [
         'password' => 'Password123!',
     ]);
 
@@ -30,7 +30,7 @@ it('user cannot delete profile with wrong', function () {
 
     loginUser($user);
 
-    $response = postJson('/api/v1/settings/delete-profile', [
+    $response = deleteJson('/api/v1/settings/delete-profile', [
         'password' => 'Password123',
     ]);
 

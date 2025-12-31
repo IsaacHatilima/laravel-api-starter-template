@@ -1,9 +1,8 @@
 *.log
 .ai
-.cursor
-.junie
+.cursor/mcp.json
+.junie/mcp
 .DS_Store
-CLAUDE.md
 .mcp.json
 .env
 .env.backup

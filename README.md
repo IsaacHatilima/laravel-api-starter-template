@@ -6,7 +6,6 @@ A robust, opinionated Laravel API starter kit built for high code quality and sc
 
 * **Authentication:
   ** [Fortify](https://laravel.com/docs/fortify) & [JWT-Auth](https://github.com/php-open-source-saver/jwt-auth)
-* **Social Auth:** [Socialite](https://laravel.com/docs/socialite)
 * **Code Quality:** * **Pint**: PHP code style fixer.
     * **PHPStan**: Static analysis (Strict Level).
     * **PHP Insights**: Architecture and complexity analysis.
@@ -39,7 +38,7 @@ composer run setup
 
 ## 🛠 Development Commands
 
-Run these to maintain the 100/100 quality score:
+Run these for code quality, expectation is all green with all 100% for PHPInsights:
 
 ```bash
 # Fix code style
