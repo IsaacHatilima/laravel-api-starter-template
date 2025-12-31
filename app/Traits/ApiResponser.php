@@ -49,6 +49,14 @@ trait ApiResponser
     }
 
     /**
+     * 204 Deleted - Resource successfully deleted.
+     */
+    protected function deleted(): JsonResponse
+    {
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * 400 Bad Request - General client-side error.
      *
      * @param array<string, mixed>|null $errors
