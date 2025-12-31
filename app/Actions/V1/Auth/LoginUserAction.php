@@ -2,7 +2,7 @@
 
 namespace App\Actions\V1\Auth;
 
-use App\DTOs\V1\Command\Auth\LoginDTO;
+use App\DTOs\V1\Command\Auth\LoginRequestDTO;
 use App\DTOs\V1\Read\User\TwoFactorAuthDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -19,7 +19,7 @@ final readonly class LoginUserAction
     /**
      * @throws ValidationException
      */
-    public function execute(LoginDTO $dto): TwoFactorAuthDTO
+    public function execute(LoginRequestDTO $dto): TwoFactorAuthDTO
     {
         $user = $this->userRepository->findOne(['email' => $dto->email]);
 
@@ -38,7 +38,7 @@ final readonly class LoginUserAction
         return new TwoFactorAuthDTO($user, $token, false);
     }
 
-    private function ensureUserIsValid(?User $user, LoginDTO $dto): User
+    private function ensureUserIsValid(?User $user, LoginRequestDTO $dto): User
     {
         if (! $user || ! auth()->validate(['email' => $dto->email, 'password' => $dto->password])) {
             throw ValidationException::withMessages(['email' => ['The provided credentials are incorrect']]);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Auth;
 
 use App\Actions\V1\Auth\LoginUserAction;
-use App\DTOs\V1\Command\Auth\LoginDTO;
+use App\DTOs\V1\Command\Auth\LoginRequestDTO;
 use App\DTOs\V1\Read\User\AuthResponseDTO;
 use App\DTOs\V1\Read\User\UserDTO;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function __invoke(LoginRequest $request): JsonResponse
     {
-        $dto = LoginDTO::fromRequest($request);
+        $dto = LoginRequestDTO::fromRequest($request);
 
         $result = $this->loginAction->execute($dto);
 

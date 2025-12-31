@@ -2,7 +2,7 @@
 
 namespace App\Actions\V1\Auth;
 
-use App\DTOs\V1\Command\Auth\ResetPasswordDTO;
+use App\DTOs\V1\Command\Auth\ResetPasswordRequestDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\Events\PasswordReset;
@@ -16,7 +16,7 @@ final readonly class ResetPasswordAction
     ) {
     }
 
-    public function execute(ResetPasswordDTO $dto, User $user): void
+    public function execute(ResetPasswordRequestDTO $dto, User $user): void
     {
         $user = $this->userRepository->update(
             $user,

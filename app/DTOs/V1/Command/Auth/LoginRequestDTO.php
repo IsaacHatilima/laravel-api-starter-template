@@ -8,7 +8,7 @@ use App\Http\Requests\V1\Auth\LoginRequest;
 /**
  * @extends BaseDTO<string, mixed>
  */
-final readonly class LoginDTO extends BaseDTO
+final readonly class LoginRequestDTO extends BaseDTO
 {
     public function __construct(
         public string $email,

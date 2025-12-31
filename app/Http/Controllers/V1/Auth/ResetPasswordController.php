@@ -4,7 +4,7 @@ namespace App\Http\Controllers\V1\Auth;
 
 use App\Actions\V1\Auth\ResetPasswordAction;
 use App\Actions\V1\Auth\VerifyResetPasswordAction;
-use App\DTOs\V1\Command\Auth\ResetPasswordDTO;
+use App\DTOs\V1\Command\Auth\ResetPasswordRequestDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\ResetPasswordRequest;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +33,7 @@ class ResetPasswordController extends Controller
     {
         $user = $this->verifyAction->execute($request->query('id'));
 
-        $dto = ResetPasswordDTO::fromRequest($request);
+        $dto = ResetPasswordRequestDTO::fromRequest($request);
         $this->resetPasswordAction->execute($dto, $user);
 
         return $this->success(message: 'Password changed successfully');

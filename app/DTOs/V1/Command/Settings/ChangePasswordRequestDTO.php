@@ -4,7 +4,7 @@ namespace App\DTOs\V1\Command\Settings;
 
 use App\Http\Requests\V1\Settings\ChangePasswordRequest;
 
-class ChangePasswordDTO
+class ChangePasswordRequestDTO
 {
     public function __construct(
         public string $currentPassword,

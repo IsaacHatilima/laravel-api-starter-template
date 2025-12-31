@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @extends BaseDTO<string, mixed>
  */
-final readonly class RegisterDTO extends BaseDTO
+final readonly class RegisterRequestDTO extends BaseDTO
 {
     public function __construct(
         public string $firstName,

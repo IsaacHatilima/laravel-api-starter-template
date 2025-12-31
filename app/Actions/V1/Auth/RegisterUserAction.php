@@ -2,7 +2,7 @@
 
 namespace App\Actions\V1\Auth;
 
-use App\DTOs\V1\Command\Auth\RegisterDTO;
+use App\DTOs\V1\Command\Auth\RegisterRequestDTO;
 use App\Jobs\SendVerificationEmailJob;
 use App\Models\User;
 use App\Repositories\UserRepository;
@@ -20,7 +20,7 @@ final readonly class RegisterUserAction
     /**
      * @throws Throwable
      */
-    public function execute(RegisterDTO $dto): User
+    public function execute(RegisterRequestDTO $dto): User
     {
         $user = DB::transaction(function () use ($dto): User {
             $user = $this->userRepository->create([

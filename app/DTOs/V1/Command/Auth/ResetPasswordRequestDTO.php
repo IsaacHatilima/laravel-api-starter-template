@@ -3,22 +3,22 @@
 namespace App\DTOs\V1\Command\Auth;
 
 use App\DTOs\BaseDTO;
-use App\Http\Requests\V1\Auth\ForgotPasswordRequest;
+use App\Http\Requests\V1\Auth\ResetPasswordRequest;
 
 /**
  * @extends BaseDTO<string, mixed>
  */
-final readonly class ForgotPasswordDTO extends BaseDTO
+final readonly class ResetPasswordRequestDTO extends BaseDTO
 {
     public function __construct(
-        public string $email,
+        public string $password,
     ) {
     }
 
-    public static function fromRequest(ForgotPasswordRequest $request): self
+    public static function fromRequest(ResetPasswordRequest $request): self
     {
         return new self(
-            email: trim(strtolower($request->string('email')->value())),
+            password: $request->string('password')->value(),
         );
     }
 
@@ -28,7 +28,7 @@ final readonly class ForgotPasswordDTO extends BaseDTO
     public function toArray(): array
     {
         return [
-            'email' => $this->email,
+            'password' => $this->password,
         ];
     }
 }

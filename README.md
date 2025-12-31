@@ -14,11 +14,96 @@ A robust, opinionated Laravel API starter kit built for high code quality and sc
 
 This project uses a custom architecture to keep logic decoupled and testable:
 
-* **app/Actions**: Single-responsibility business logic classes.
-* **app/DTOs**: Data Transfer Objects for type-safe data handling.
-* **app/Repositories**: Abstracted data access layer.
-* **app/Jobs**: Background processing.
-* **app/Traits**: Reusable cross-concern logic.
+```text
+app
+├── Actions
+│   └── V1
+│       ├── Auth
+│       │   ├── EmailVerificationAction.php
+│       │   ├── EndAllSessionsAction.php
+│       │   ├── LoginUserAction.php
+│       │   ├── LogoutUserAction.php
+│       │   ├── RefreshTokenAction.php
+│       │   ├── RegisterUserAction.php
+│       │   ├── ResetPasswordAction.php
+│       │   ├── SendResetPasswordLinkAction.php
+│       │   ├── TwoFactorLoginAction.php
+│       │   └── VerifyResetPasswordAction.php
+│       └── Settings
+│           ├── ConfirmTwoFactorAction.php
+│           ├── DeleteProfileAction.php
+│           ├── DisableTwoFactorAction.php
+│           ├── EnableTwoFactorAction.php
+│           ├── GenerateTwoFactorRecoveryCodesAction.php
+│           ├── ProfileUpdateAction.php
+│           └── UpdatePasswordAction.php
+├── DTOs
+│   ├── BaseDTO.php
+│   └── V1
+│       ├── Command
+│       │   ├── Auth
+│       │   │   ├── ForgotPasswordRequestDTO.php
+│       │   │   ├── LoginRequestDTO.php
+│       │   │   ├── RegisterRequestDTO.php
+│       │   │   └── ResetPasswordRequestDTO.php
+│       │   └── Settings
+│       │       ├── ChangePasswordRequestDTO.php
+│       │       └── ProfileUpdateRequestDTO.php
+│       └── Read
+│           └── User
+│               ├── AuthResponseDTO.php
+│               ├── ProfileDTO.php
+│               ├── TwoFactorAuthDTO.php
+│               └── UserDTO.php
+├── Http
+│   ├── Controllers
+│   │   ├── Controller.php
+│   │   └── V1
+│   │       ├── Auth
+│   │       │   ├── EmailVerificationController.php
+│   │       │   ├── EndAllSessionsController.php
+│   │       │   ├── ForgotPasswordController.php
+│   │       │   ├── LoginController.php
+│   │       │   ├── LogoutController.php
+│   │       │   ├── MeController.php
+│   │       │   ├── RefreshTokenController.php
+│   │       │   ├── RegisterController.php
+│   │       │   ├── ResetPasswordController.php
+│   │       │   └── TwoFactorLoginController.php
+│   │       └── Settings
+│   │           ├── DeleteProfileController.php
+│   │           ├── TwoFactorManagerController.php
+│   │           ├── UpdatePasswordController.php
+│   │           └── UpdateProfileController.php
+│   └── Requests
+│       └── V1
+│           ├── Auth
+│           │   ├── CurrentPasswordRequest.php
+│           │   ├── ForgotPasswordRequest.php
+│           │   ├── LoginRequest.php
+│           │   ├── RegisterRequest.php
+│           │   ├── ResetPasswordRequest.php
+│           │   └── TwoFactorCodeRequest.php
+│           └── Settings
+│               ├── ChangePasswordRequest.php
+│               └── ProfileUpdateRequest.php
+├── Jobs
+│   └── SendVerificationEmailJob.php
+├── Listeners
+│   └── RevokeUserSessionsOnPasswordReset.php
+├── Models
+│   ├── Profile.php
+│   └── User.php
+├── Notifications
+│   ├── ResetPasswordNotification.php
+│   └── VerifyEmailWithPublicId.php
+├── Repositories
+│   └── UserRepository.php
+└── Traits
+    ├── ApiResponser.php
+    ├── HasPublicUuid.php
+    └── InteractsWithAuth.php
+```
 
 ## 🔐 2FA Implementation (Scan Guide)
 
