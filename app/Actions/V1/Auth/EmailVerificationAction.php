@@ -27,7 +27,7 @@ final readonly class EmailVerificationAction
             ]);
         }
 
-        $user = $this->userRepository->findOne(['public_id' => $request->query('id')]);
+        $user = $this->userRepository->findByPublicId($request->query('id'));
 
         if (! $user) {
             throw new ModelNotFoundException('User not found.');

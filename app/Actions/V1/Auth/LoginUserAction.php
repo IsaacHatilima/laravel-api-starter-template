@@ -21,7 +21,7 @@ final readonly class LoginUserAction
      */
     public function execute(LoginRequestDTO $dto): TwoFactorAuthDTO
     {
-        $user = $this->userRepository->findOne(['email' => $dto->email]);
+        $user = $this->userRepository->findByEmail($dto->email);
 
         $user = $this->ensureUserIsValid($user, $dto);
 

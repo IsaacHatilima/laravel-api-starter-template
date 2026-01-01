@@ -2,13 +2,9 @@
 
 namespace App\DTOs\V1\Command\Auth;
 
-use App\DTOs\BaseDTO;
 use App\Http\Requests\V1\Auth\ResetPasswordRequest;
 
-/**
- * @extends BaseDTO<string, mixed>
- */
-final readonly class ResetPasswordRequestDTO extends BaseDTO
+final readonly class ResetPasswordRequestDTO
 {
     public function __construct(
         public string $password,
@@ -20,15 +16,5 @@ final readonly class ResetPasswordRequestDTO extends BaseDTO
         return new self(
             password: $request->string('password')->value(),
         );
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'password' => $this->password,
-        ];
     }
 }

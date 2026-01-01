@@ -2,13 +2,9 @@
 
 namespace App\DTOs\V1\Command\Auth;
 
-use App\DTOs\BaseDTO;
 use App\Http\Requests\V1\Auth\ForgotPasswordRequest;
 
-/**
- * @extends BaseDTO<string, mixed>
- */
-final readonly class ForgotPasswordRequestDTO extends BaseDTO
+final readonly class ForgotPasswordRequestDTO
 {
     public function __construct(
         public string $email,
@@ -20,15 +16,5 @@ final readonly class ForgotPasswordRequestDTO extends BaseDTO
         return new self(
             email: trim(strtolower($request->string('email')->value())),
         );
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return [
-            'email' => $this->email,
-        ];
     }
 }

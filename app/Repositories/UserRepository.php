@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Collection;
 
 final readonly class UserRepository
 {
-    /**
-     * @param array<string, mixed> $criteria
-     */
-    public function findOne(array $criteria): ?User
+    public function findByEmail(string $email): ?User
     {
         return User::query()
-            ->where($criteria)
+            ->where('email', $email)
+            ->first();
+    }
+
+    public function findByPublicId(string $publicId): ?User
+    {
+        return User::query()
+            ->where('public_id', $publicId)
             ->first();
     }
 
@@ -44,7 +48,7 @@ final readonly class UserRepository
     {
         $user->update($data);
 
-        return $user;
+        return $user->refresh();
     }
 
     public function delete(User $user): bool

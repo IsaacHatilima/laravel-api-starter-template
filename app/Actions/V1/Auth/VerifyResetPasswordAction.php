@@ -20,7 +20,7 @@ final readonly class VerifyResetPasswordAction
      */
     public function execute(string $id): User
     {
-        $user = $this->userRepository->findOne(['public_id' => $id]);
+        $user = $this->userRepository->findByPublicId($id);
 
         if (! $user) {
             throw new ModelNotFoundException('User not found.');

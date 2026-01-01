@@ -13,9 +13,9 @@ final readonly class SendResetPasswordLinkAction
      */
     public function execute(ForgotPasswordRequestDTO $dto): void
     {
-        $status = Password::broker()->sendResetLink(
-            $dto->toArray()
-        );
+        $status = Password::broker()->sendResetLink([
+            'email' => $dto->email,
+        ]);
 
         if ($status !== Password::RESET_LINK_SENT) {
             throw ValidationException::withMessages([
